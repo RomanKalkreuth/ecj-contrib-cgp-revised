@@ -1,0 +1,97 @@
+
+parent.0 = ../simple-cgp.params
+parent.1 = @ec.Evolve simple/simple.params
+
+breed = ec.cgp.Breeder
+breed.elite.0 = 1
+
+jobs = 100
+
+#================================================================================
+# Set up population
+#================================================================================
+pop.subpops = 1
+pop.subpop.0 = ec.Subpopulation
+
+pop.subpop.0.size = 50
+pop.subpop.0.species = ec.cgp.representation.AdvancedIntegerVectorSpecies
+pop.subpop.0.species.ind = ec.cgp.representation.AdvancedIntegerVectorIndividual
+
+#================================================================================
+# Our own fitness.  A simple modification that makes smaller fitnesses better.
+#================================================================================
+pop.subpop.0.species.fitness = ec.cgp.FitnessCGP
+
+#================================================================================
+Mutation type and probabilities
+#================================================================================
+pop.subpop.0.species.mutation-type = point
+
+pop.subpop.0.species.mutation-prob = .2
+
+pop.subpop.0.species.inversion-prob = 0.00
+pop.subpop.0.species.max-inversion-depth = 2
+
+pop.subpop.0.species.duplication-prob = 0.0
+pop.subpop.0.species.max-duplication-depth = 2
+
+pop.subpop.0.species.insertion-prob = 0.00
+pop.subpop.0.species.max-node-insertion = 100
+
+pop.subpop.0.species.deletion-prob = 0.00
+pop.subpop.0.species.min-node-deletion = 2
+
+#================================================================================
+# Function lookup table class for use by the CGP function evaluator.
+# This class is expected to implement CGPFunctions.
+#================================================================================
+pop.subpop.0.species.functions = ec.cgp.functions.FunctionsRegressionKoza
+
+# number of functions in your lookup table
+pop.subpop.0.species.num-functions = 8
+
+# number of nodes in your CGP, not including inputs and outputs.
+pop.subpop.0.species.nodes = 10
+
+# number of input nodes in your CGP.  Your problem class feeds these inputs to the CGPEvaluator. 
+pop.subpop.0.species.inputs = 2
+
+# number of output nodes in your CGP.  Your problem class extracts these outputs from the CGPEvaluator.
+pop.subpop.0.species.outputs = 1
+
+# max number of inputs for all functions in your function lookup table.
+pop.subpop.0.species.maxArity = 2  
+
+#================================================================================
+# First, two parents are selected via tournament selection (size 2).  The parents
+# are recombined at the rate specified by crossover-prob. The children are then mutated.
+#================================================================================
+pop.subpop.0.species.pipe = ec.vector.breed.VectorMutationPipeline
+pop.subpop.0.species.pipe.source.0 = ec.cgp.recombination.VectorCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.likelihood = 0.7
+pop.subpop.0.species.pipe.source.0.source.0 = ec.select.TournamentSelection
+pop.subpop.0.species.pipe.source.0.source.0.size = 4
+pop.subpop.0.species.pipe.source.0.source.1 = ec.select.TournamentSelection
+pop.subpop.0.species.pipe.source.0.source.1.size = 4
+pop.subpop.0.species.pipe.source.0.toss = false
+pop.subpop.0.species.pipe.source.0.xover = uniform
+
+#================================================================================
+# Class that sets up the regression problem.  Invokes the CGPEvaluator on all
+# possible boolean inputs.  The CGPEvaluator computes the output value of the 
+# function represented by the genome.  
+#================================================================================
+eval.problem = ec.cgp.problems.regression.ProblemRegression
+
+# Identifies which function you want to use for regression
+problem.which = 1
+
+#================================================================================
+# Our custom stats class prints out newly discovered best-of run individuals
+# as they are discovered.
+#================================================================================
+stat = ec.cgp.Stats
+silent = true
+
+stat.silent=true
+print-params = false
