@@ -1,6 +1,6 @@
 # Revision of the ECJ CGP Contrib Package
 
-This is a revised version of the Cartesian Genetic Programming (CGP) extension package for the Java Evolutionary Computation Toolkit (ECJ). It extends the origial package written by David Oranchak. This revised version aims on the integration of advanced methods for CGP into ECJ. It will be integrated into the ECJ main line on an ongoing basis.
+This is a revised version of the Cartesian Genetic Programming (CGP) extension package for the Java Evolutionary Computation Toolkit (ECJ). It extends the origial package written by David Oranchak. This version aims at the integration of advanced methods for CGP into ECJ. It will be integrated into the ECJ mainline on an ongoing basis.
 
 CGP is a heuristic method inspired by neo-Darwinian evolution for evolving graphs. CGP is known for its application to Boolean program synthesis and evolvable hardware. 
 
