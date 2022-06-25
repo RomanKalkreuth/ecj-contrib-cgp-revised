@@ -8,6 +8,7 @@ CGP is a heuristic method inspired by neo-Darwinian evolution for evolving graph
 
 - Block crossover 
 - Subgraph crossover 
+- Discrete/uniform crossover
 
 - Single active gene mutation
 - Insertion and deletion node mutation
